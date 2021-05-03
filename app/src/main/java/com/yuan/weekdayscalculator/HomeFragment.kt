@@ -43,10 +43,11 @@ class HomeFragment : Fragment() {
         }
 
         view.calculateDaysBtn.setOnClickListener {
-//            calculateButtonPressed(startDate, endDate) { result ->
-//                view.weekdays.setText(result)
-//            }
-            v -> test(startDate, endDate)
+            thread {
+                calculateButtonPressed(startDate, endDate) { result ->
+                    view.weekdays.setText(result)
+                }
+            }
         }
 
         return view
@@ -71,9 +72,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun test(startDate: String, endDate: String) {
-        var test2 = startDate
-    }
 
     private fun calculateButtonPressed(startDate: String, endDate: String, callback: (result: String?) -> Unit) {
         // calculate function
@@ -92,14 +90,4 @@ class HomeFragment : Fragment() {
 
         callback.invoke(result)
     }
-
-    companion object {
-        val TAG = HomeFragment::class.java.simpleName
-        @JvmStatic
-        fun newInstance(startDate: String, endDate: String): HomeFragment {
-            val fragment = HomeFragment(startDate, endDate)
-            return fragment
-        }
-    }
-
 }
